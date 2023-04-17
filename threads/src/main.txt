@@ -1,0 +1,39 @@
+use rand::{self, Rng};
+use tokio::sync::futures;
+use std::{thread, time};
+use std::future::Future;
+use futures::executor::block_on;
+
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let mut count = 0;
+    while count < 5 {
+        println!("-----------------------------------");
+        let v = vec!["one", "two", "three", "four", "five"];
+        v.into_iter().for_each(|x| {
+            let handle = thread::spawn(move || {
+                // problem is that we can not await lets_print inside main ( as main is not async)
+                // hence it will not do anything ( not yeild)
+                let z = lets_print(x);
+                block_on(z);
+            });
+
+            handle.join().unwrap();
+        });
+
+        count += 1;
+    }
+
+    Ok(())
+}
+
+async fn lets_wait() {
+    let dur = rand::thread_rng().gen_range(1..=10);
+    thread::sleep(time::Duration::from_millis(dur));
+}
+
+async fn lets_print(x: &str) {
+    lets_wait().await;
+    println!("Hello!! {}", x);
+}
