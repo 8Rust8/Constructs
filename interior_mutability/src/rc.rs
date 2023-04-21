@@ -1,4 +1,3 @@
-
 #![allow(unused)]
 use std::rc::Rc;
 
@@ -10,7 +9,13 @@ pub struct City {
 }
 
 impl City {
-    pub fn new(name: String, population: u32, city_history: Rc<String>) -> Self { Self { name, population, city_history } }
+    pub fn new(name: String, population: u32, city_history: Rc<String>) -> Self {
+        Self {
+            name,
+            population,
+            city_history,
+        }
+    }
 }
 
 #[derive(Debug)]
@@ -20,7 +25,7 @@ pub struct CityData {
 }
 
 impl CityData {
-    pub fn new(names: Vec<String>, histories: Vec<Rc<String>>) -> Self { Self { names, histories } }
+    pub fn new(names: Vec<String>, histories: Vec<Rc<String>>) -> Self {
+        Self { names, histories }
+    }
 }
-
-

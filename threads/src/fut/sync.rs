@@ -3,7 +3,8 @@ pub mod future_plays {
     const NUM: usize = 1000;
 
     pub fn sync_fut() {
-        // what ever we try this code will  send first and then recieve because we are using sync version of std::net Sockets
+        // what ever we try this code will  send first and then recieve because we are
+        // using sync version of std::net Sockets
         // sleep version of std is also sync hence it won't release the thread
         let mut buffer = [0; 256];
         let mut count = 0;

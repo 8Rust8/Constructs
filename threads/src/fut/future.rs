@@ -36,7 +36,7 @@ pub mod fut_test {
                     // weite
                     dbg!(buffer);
 
-                    stream.write_all(&mut buffer[0..n]).await;
+                    //stream.write_all(&mut buffer[0..n]).await;
                 }
             });
         }

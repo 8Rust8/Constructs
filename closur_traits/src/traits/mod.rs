@@ -22,11 +22,11 @@ pub enum Fruits {
 
 pub mod closer_traits {
     #![allow(unused)]
-    use super::Fruits;
     use super::DayOfWeek;
+    use super::Fruits;
 
     // this function returns a closure which muts a Fruit and retuens back Fruit
-    // should have taken some number in place of Fruits to make it convinient 
+    // should have taken some number in place of Fruits to make it convinient
     pub fn eat_fruit(input: DayOfWeek) -> impl FnMut(Fruits) -> Fruits {
         use DayOfWeek::*;
         use Fruits::*;

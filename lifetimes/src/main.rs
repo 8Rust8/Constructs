@@ -22,5 +22,5 @@ fn main() {
     let mut hero2 = Hero::new(heros[1], 100);
 
     hero1.damage(10);
-    hero1.damage(110);
+    hero2.damage(110);
 }

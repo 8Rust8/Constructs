@@ -1,5 +1,5 @@
 #![allow(unused, dead_code)]
-use std::{fmt::{format, Error}, error::Error};
+use std::fmt::{format, Error};
 
 #[derive(Debug)]
 enum Lights {
@@ -9,7 +9,7 @@ enum Lights {
 }
 
 #[derive(Debug, PartialEq)]
-enum Rating {
+pub enum Rating {
     High,
     Medium,
     Low,
@@ -40,7 +40,7 @@ pub trait Operations {
         println!("Saving power {}", power);
     }
     fn generate_bill(&self, day_hours: u32) -> String;
-    fn get_rating(&self) -> Rating;
+    fn get_rating(&self) -> &Rating;
 }
 
 impl Cooler {
@@ -75,8 +75,8 @@ impl Operations for Cooler {
         )
     }
 
-    fn get_rating(&self) -> Rating {
-        let rating = match self.catageory {
+    fn get_rating(&self) -> &Rating {
+        let rating = match &self.catageory {
             CoolerType::Fan(r) => r,
             CoolerType::AC(r) => r,
             CoolerType::HandFan(r) => r,
@@ -98,8 +98,8 @@ impl Operations for Bulb {
         )
     }
 
-    fn get_rating(&self) -> Rating {
-        let rating = match self.catageory {
+    fn get_rating(&self) -> &Rating {
+        let rating = match &self.catageory {
             Lights::Neon(r) => r,
             Lights::Halogen(r) => r,
             Lights::LED(r) => r,
@@ -122,20 +122,18 @@ where
 
 // return a type using trait bound
 
-fn get_optimal(item1: &Bulb, item2: &Cooler) -> Result<impl Operations, String> {
-    let r1 = item1.get_rating();
-    let r2 = item2.get_rating();
+// fn get_optimal(item1: &Bulb, item2: &Cooler) -> Option<impl Operations> {
+//     let r1 = item1.get_rating();
+//     let r2 = item2.get_rating();
 
-    match r1 == r2 {
-        true => "Both are same. Neither is option ".to_string(),
-        false => {
-            match r1 == Rating::High {
-                true => Ok(item1),
-                false => Ok(item2),
-            }
-        },
-    }
-}
+//     match r1 == r2 {
+//         true => None,
+//         false => match r1 == Rating::High {
+//             true => Some(item1),
+//             false => Some(item1),
+//         },
+//     }
+// }
 
 fn main() {
     let b = Bulb::new(10, "Surya".to_string(), Rating::High);

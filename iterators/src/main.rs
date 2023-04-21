@@ -46,13 +46,9 @@ fn main() {
     let filtered_books: Vec<&(u32, String)> = lib
         .books
         .iter() // make an iter
-        .inspect(|book| {
-            println!( "Filtering length  more than 10 :: curr book :: {}",book.1  )
-        })
+        .inspect(|book| println!("Filtering length  more than 10 :: curr book :: {}", book.1))
         .filter(|(_0, _1)| _1.len() > 10) // We don't want months more than 5 bytes in length.
-        .inspect(|book| {
-            println!( "Filtered books :: {}",book.1  )
-        })
+        .inspect(|book| println!("Filtered books :: {}", book.1))
         .filter(|(_0, _1)| _1.contains("s")) // Also we only like months with the letter u
         .collect();
 
